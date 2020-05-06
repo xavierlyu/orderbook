@@ -49,7 +49,7 @@ try:
             cursor.execute(sql, tuple(arr))
 
         connection.commit()
-        time.sleep(40)
+        time.sleep(60)
 
 finally:
     connection.close()

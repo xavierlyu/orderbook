@@ -14,6 +14,7 @@ import spacy
 import os
 import pickle
 import csv
+import torchvision
 
 unk = '<UNK>'
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
@@ -44,21 +45,21 @@ class RNN(nn.Module):
 
 
 def convert_to_vector_representation(data):
-    spacy.prefer_gpu()
-    nlp = spacy.load("en_core_web_lg")
-    vectors = []
-    for document, star in tqdm(data):
-        #document = nlp(document)
-        document_vectors = []
-        for i in document:
-            i = nlp(i)
-            document_vectors.append(i.vector)
-        vectors.append((torch.tensor(document_vectors), star))
-    return vectors
+    vectorized_data = []
+    for doc,y in data:
+        vector = torch.FloatTensor(doc)
+        vectorized_data.append((vector,y))
+    return vectorized_data
+    # for doc,y in data:
+    #     v = []
+    #     for i in doc:
+    #         v.append([i])
+    #     vector = torch.FloatTensor(doc)
+    #     vectorized_data.append((vector,y))
+    # return vectorized_data
 
 
-CACHED = True
-
+# CACHED = False
 
 def main(hidden_dim, number_of_epochs):  # Add relevant parameters
     index_global = 0
@@ -71,27 +72,30 @@ def main(hidden_dim, number_of_epochs):  # Add relevant parameters
         print("GPU not available, CPU used")
 
     print("Fetching data")
-    # X_data is a list of pairs (document, y); y in {0,1,2,3,4}
+    # X_data is a list of pairs (document, y); y in {0,1}
     train_data, valid_data = fetch_data()
     print("Data fetched")
-    #train_data = convert_to_vector_representation(train_data)
-    #valid_data = convert_to_vector_representation(valid_data)
-    if CACHED:
-        train_data = pickle.load(open("train_data.pkl", "rb"))
-        valid_data = pickle.load(open("valid_data.pkl", "rb"))
-    else:
-        train_data = convert_to_vector_representation(train_data)
-        valid_data = convert_to_vector_representation(valid_data)
-        pickle.dump(train_data, open("train_data.pkl", "wb"))
-        pickle.dump(valid_data, open("valid_data.pkl", "wb"))
+    
+    train_data = convert_to_vector_representation(train_data)
+    valid_data = convert_to_vector_representation(valid_data)
+
+    # if CACHED:
+    #     train_data = pickle.load(open("train_data.pkl", "rb"))
+    #     valid_data = pickle.load(open("valid_data.pkl", "rb"))
+    # else:
+    #     train_data = convert_to_vector_representation(train_data)
+    #     valid_data = convert_to_vector_representation(valid_data)
+    #     pickle.dump(train_data, open("train_data.pkl", "wb"))
+    #     pickle.dump(valid_data, open("valid_data.pkl", "wb"))
 
     print("Vectorized data")
+    print("Length of each list: " + str(len(train_data[0][0])))
 
     # Create RNN
-    model = RNN(input_dim=300, h=hidden_dim,
-                output_size=5, n_layers=1, device=device)
+    model = RNN(input_dim=1, h=hidden_dim,
+                output_size=2, n_layers=10, device=device) #n=1024? train on gpu
     model.to(device)
-    optimizer = optim.SGD(model.parameters(), lr=0.005, momentum=0.9)
+    optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
     for epoch in range(number_of_epochs):
         model.train()
         optimizer.zero_grad()
@@ -110,7 +114,13 @@ def main(hidden_dim, number_of_epochs):  # Add relevant parameters
                 input_vector, gold_label = train_data[minibatch_index *
                                                       minibatch_size + example_index]
                 input_vector = input_vector.to(device)
-                predicted_vector, hidden = model(input_vector.unsqueeze(1))
+                input_vector = (input_vector - input_vector.mean()) / input_vector.std()
+
+                # norm = torchvision.transforms.Normalize(mean= 0, std= 0.1) #delete?
+                # input_vector = norm(input_vector) #delete?
+                
+                predicted_vector, hidden = model(input_vector.unsqueeze(1).unsqueeze(1))
+                # predicted_vector,hidden = model(input_vector.reshape(1,199,1))
                 predicted_label = torch.argmax(predicted_vector)
                 correct += int(predicted_label == gold_label)
                 total += 1
@@ -121,9 +131,9 @@ def main(hidden_dim, number_of_epochs):  # Add relevant parameters
                 else:
                     loss += example_loss
             loss = loss / minibatch_size
-            if (loss.item() > 100):
-                print ("Stopping: Model might be Overfitting")
-                os._exit(1)
+            # if (loss.item() > 100):
+            #     print ("Stopping: Model might be Overfitting")
+            #     os._exit(1)
             loss.backward()
             #nn.utils.clip_grad_norm_(model.parameters(),0.5)
             optimizer.step()
@@ -151,7 +161,12 @@ def main(hidden_dim, number_of_epochs):  # Add relevant parameters
                     input_vector, gold_label = valid_data[minibatch_index *
                                                           minibatch_size + example_index]
                     input_vector = input_vector.to(device)
-                    predicted_vector, hidden = model(input_vector.unsqueeze(1))
+                    input_vector = (input_vector - input_vector.mean()) / input_vector.std()
+
+                    # norm = torchvision.transforms.Normalize(mean= 0, std= 0.1) #delete?
+                    # input_vector = norm(input_vector) #delete?
+                    
+                    predicted_vector, hidden = model(input_vector.unsqueeze(1).unsqueeze(1))
                     predicted_label = torch.argmax(predicted_vector)
 
                     row = [index_global, epoch + 1, gold_label, predicted_label]

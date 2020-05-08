@@ -3,9 +3,9 @@ import random
 
 
 def fetch_data():
-    with open('training.json') as training_f:
+    with open('./train.json') as training_f:
         training = json.load(training_f)
-    with open('validation.json') as valid_f:
+    with open('./val.json') as valid_f:
         validation = json.load(valid_f)
     # If needed you can shrink the training and validation data to speed up somethings but this isn't always safe to do by setting k < 16000
     #k = 100
@@ -15,7 +15,7 @@ def fetch_data():
     tra = []
     val = []
     for elt in training:
-        tra.append((elt["text"].split(), int(elt["stars"]-1)))
+        tra.append((elt["price"], int(elt["class"])))
     for elt in validation:
-        val.append((elt["text"].split(), int(elt["stars"]-1)))
+        val.append( (elt["price"], int(elt["class"])) )
     return tra, val

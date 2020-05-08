@@ -20,21 +20,12 @@ database = config["database"]["database"]
 con = pymysql.connect(host, user=user, port=port, passwd=password, database=database)
 
 with con:
-    query = "SELECT * FROM `kucoin`.`ethusdt` ORDER BY `record_time` ASC"  # HAS TO BE ASCENDING ORDER
+    query = "SELECT * FROM `kucoin`.`ethusdt` ORDER BY `record_time` ASC LIMIT 7000"  # HAS TO BE ASCENDING ORDER
     df = pd.read_sql(query, con)
 
     # calculating spread and midprice
     df["spread"] = df["ask1_price"] - df["bid1_price"]
     df["midprice"] = (df["ask1_price"] + df["bid1_price"]) / 2.0
-
-    # comparing midprice to the future midprice in 5 rows
-    df["time_diff"] = df["record_time"].shift(-5) - df["record_time"]
-    df["time_diff"] = df["time_diff"] / np.timedelta64(1, "s")
-    df["movement"] = (
-        (df["midprice"].shift(-5) - df["midprice"]) > (df["midprice"] * FEE)
-    ) * 1  # converting a serie of bool to a serie of int
-
-    # df = df.drop(columns=["record_time", "time_diff"])
 
     # calculating momentum
     df["momentum-15"] = df["midprice"] - df["midprice"].shift(15)
@@ -51,8 +42,33 @@ with con:
         else:
             df.loc[i, "OBV"] = df.loc[i - 1, "OBV"]
 
+    # comparing midprice to the future midprice in 5 rows
+    df["time_diff"] = df["record_time"].shift(-5) - df["record_time"]
+    df["time_diff"] = df["time_diff"] / np.timedelta64(1, "s")
+    df["movement"] = (
+        (df["midprice"].shift(-5) - df["midprice"]) > (df["midprice"] * FEE)
+    ) * 1  # converting a serie of bool to a serie of int
+
+    df = df.drop(columns=["spread", "record_time", "time_diff", "vol"])
+
+    df = df.dropna()
+    output_arr = []
+
     # pd.set_option("display.max_rows", None)
-    print(df)
+    # print(df)
+
+    for i in range(len(df)):
+        pair = {
+            "price": df.iloc[i].values[:-1].tolist(),
+            "class": str(df.iloc[i, -1]),
+        }
+        output_arr.append(pair)
+
+    # print(output_arr)
+
+    output_file_path = "./train.json"
+    with open(output_file_path, "w") as f:
+        json.dump(output_arr, f)
 
     # fig, ax1 = plt.subplots()
     # color = "tab:red"

@@ -9,11 +9,11 @@ config_file_path = "./config.json"
 with open(config_file_path, "r") as handler:
     config = json.load(handler)
 
-host = config["database"]['host']
-port = int(config["database"]['port'])
-user = config["database"]['user']
-password = config["database"]['password']
-database = config["database"]['database']
+host = config["database"]["host"]
+port = int(config["database"]["port"])
+user = config["database"]["user"]
+password = config["database"]["password"]
+database = config["database"]["database"]
 
 connection = pymysql.connect(
     host, user=user, port=port, passwd=password, database=database
@@ -29,7 +29,7 @@ try:
         data = r.json()
         orderbook_data = data["data"]
         arr = []
-        for i in range(49):
+        for i in range(10):
             arr.append(orderbook_data["asks"][i][0])
             arr.append(orderbook_data["asks"][i][1])
             arr.append(orderbook_data["bids"][i][0])
@@ -39,13 +39,12 @@ try:
         arr.append(curr_timestamp)
 
         print(
-            (float(orderbook_data["asks"][0][0]) +
-             float(orderbook_data["bids"][0][0]))
+            (float(orderbook_data["asks"][0][0]) + float(orderbook_data["bids"][0][0]))
             / 2.0
         )
 
         with connection.cursor() as cursor:
-            sql = "INSERT INTO `ethusdt` VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            sql = "INSERT INTO `ethusdt` VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             cursor.execute(sql, tuple(arr))
 
         connection.commit()

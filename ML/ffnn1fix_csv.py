@@ -21,7 +21,7 @@ class FFNN(nn.Module):
 			self.h = h
 			self.W1 = nn.Linear(input_dim, h)
 			self.activation = nn.ReLU()
-			self.W2 = nn.Linear(h, 5)
+			self.W2 = nn.Linear(h, 2)
 
 			# The below two lines are not a source for an error
 			self.softmax = nn.LogSoftmax() # The softmax function that converts vectors into probability distributions; computes log probabilities for computational benefits
@@ -66,30 +66,36 @@ def make_indices(vocab):
 
 # Returns:
 # vectorized_data = A list of pairs (vector representation of input, y)
-def convert_to_vector_representation(data, word2index):
+def convert_to_vector_representation(data):
 	vectorized_data = []
-	for document, y in data:
-		vector = torch.zeros(len(word2index))
-		for word in document:
-			index = word2index.get(word, word2index[unk])
-			vector[index] += 1
-		vectorized_data.append((vector, y))
+	# for document, y in data:
+	# 	vector = torch.zeros(len(word2index))
+	# 	for word in document:
+	# 		index = word2index.get(word, word2index[unk])
+	# 		vector[index] += 1
+	# 	vectorized_data.append((vector, y))
+	for doc,y in data:
+		vector = torch.FloatTensor(doc)
+		vectorized_data.append((vector,y))
 	return vectorized_data
 
 
 def main(hidden_dim, number_of_epochs):
 	index_global = 0
 	print("Fetching data")
-	train_data, valid_data = fetch_data() # X_data is a list of pairs (document, y); y in {0,1,2,3,4}
-	vocab = make_vocab(train_data)
-	vocab, word2index, index2word = make_indices(vocab)
+	train_data, valid_data = fetch_data() # X_data is a list of pairs (document, y); y in {0,1}
+	length = len(train_data[0][0])
+ 	# vocab = make_vocab(train_data)
+	# vocab, word2index, index2word = make_indices(vocab)
+ 
 	print("Fetched and indexed data")
-	train_data = convert_to_vector_representation(train_data, word2index)
-	valid_data = convert_to_vector_representation(valid_data, word2index)
+	train_data = convert_to_vector_representation(train_data)
+	valid_data = convert_to_vector_representation(valid_data)
+	print(valid_data[0])
 	print("Vectorized data")
 
-	model = FFNN(input_dim = len(vocab), h = hidden_dim)
-	optimizer = optim.SGD(model.parameters(),lr=0.01, momentum=0.9)
+	model = FFNN(input_dim = length, h = hidden_dim)
+	optimizer = optim.SGD(model.parameters(),lr=0.1, momentum=0.9)
 	print("Training for {} epochs".format(number_of_epochs))
 	for epoch in range(number_of_epochs):
 		model.train()

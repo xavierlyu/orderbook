@@ -4,3 +4,222 @@ config.json
 .DS_Store
 
 /venv
+
+#oscar's stuff (glitched github repo)
+	../../.CFUserTextEncoding
+	../../.DS_Store
+	../../.RData
+	../../.Rhistory
+	../../.adobe/
+	../../.allennlp/
+	../../.anaconda/
+	../../.android/
+	../../.anyconnect
+	../../.bash_history
+	../../.bash_profile
+	../../.bash_profile-anaconda3.bak
+	../../.bash_profile.macports-saved_2019-10-28_at_20:31:40
+	../../.bash_profile.pysave
+	../../.bash_sessions/
+	../../.cache/
+	../../.cisco/
+	../../.conda/
+	../../.condarc
+	../../.config/
+	../../.cups/
+	../../.docker/
+	../../.eclipse/
+	../../.eclipse_keyring
+	../../.emacs
+	../../.emacs.d/
+	../../.flair/
+	../../.gdbinit
+	../../.gem/
+	../../.gitconfig
+	../../.idea/
+	../../.idlerc/
+	../../.ipython/
+	../../.jupyter/
+	../../.kaggle/
+	../../.kivy/
+	../../.lesshst
+	../../.local/
+	../../.m2/
+	../../.matplotlib/
+	../../.npm/
+	../../.ocamlinit
+	../../.opam/
+	../../.oracle_jre_usage/
+	../../.p2/
+	../../.pylint.d/
+	../../.python_history
+	../../.rbenv/
+	../../.rstudio-desktop/
+	../../.ssh/
+	../../.subversion/
+	../../.tooling/
+	../../.travis/
+	../../.uc-fc9117920489ae40be860fff4cd35e07.oscarso.dhcp-clara-5994.redrover.cornell.edu.tmp
+	../../.uc-fc9117920489ae40be860fff4cd35e07.oscarso.dhcp-hol-3018.redrover.cornell.edu.tmp
+	../../.uc-fc9117920489ae40be860fff4cd35e07.oscarso.oscars-macbook-pro.local.tmp
+	../../.utop-history
+	../../.vim/
+	../../.viminfo
+	../../.vimrc
+	../../.vscode-react-native/
+	../../.vscode/
+	../../.yarnrc
+	../../Applications/
+	../../BlueJ/
+	../../C-First/
+	../.DS_Store
+	../.localized
+	../2020 HKMAFCAS_SO OSCAR_CV.pdf
+	.DS_Store
+	ACNH/
+	Car/
+	Freshmen Sem 1/
+	Freshmen Sem 2/
+	IRS Taxes/
+	Jobs/
+	Kellia++/
+	Misc/
+	"R\303\251sume/"
+	Sophomore Sem 1/25032300_OfficialeTranscript.pdf
+	Sophomore Sem 1/CDS/CDS_stats_workshop.pdf
+	Sophomore Sem 1/CDS/Call w: Andrew Schade/
+	Sophomore Sem 1/CDS/GPU Info/
+	Sophomore Sem 1/CDS/Snapbee/try.py
+	Sophomore Sem 1/CS 1133/Color-Models.zip
+	Sophomore Sem 1/CS 2024/A10-CPP-Bank/
+	Sophomore Sem 1/CS 2024/A11-CPP-IO/
+	Sophomore Sem 1/CS 2024/A6-Menu-Update/
+	Sophomore Sem 1/CS 2024/A7-Menu-Update-Overload/
+	Sophomore Sem 1/CS 2024/A8-CPP-Polymorphism/
+	Sophomore Sem 1/CS 2024/A9-CPP-FunctionPointer/
+	Sophomore Sem 1/CS 2024/Assignment10.pdf
+	Sophomore Sem 1/CS 2024/Assignment11.pdf
+	Sophomore Sem 1/CS 2024/Assignment12.pdf
+	Sophomore Sem 1/CS 2024/Assignment6.pdf
+	Sophomore Sem 1/CS 2024/Assignment7.pdf
+	Sophomore Sem 1/CS 2024/Assignment8.pdf
+	Sophomore Sem 1/CS 2024/Assignment9.pdf
+	Sophomore Sem 1/CS 2024/FinalProjectGuidelines.pdf
+	Sophomore Sem 1/CS 2024/Lectures/
+	Sophomore Sem 1/CS 2024/Prelim/
+	Sophomore Sem 1/CS 3110/A5-Search-Accelerated/
+	Sophomore Sem 1/CS 3110/A6-JoCalf/
+	Sophomore Sem 1/CS 3110/CS3110-Final-Project/
+	Sophomore Sem 1/CS 3110/Final Exam/
+	Sophomore Sem 1/CS 3110/OCaml-Socket-Chat-master/
+	Sophomore Sem 1/CS 3110/Prelim 1/
+	Sophomore Sem 1/CS 3110/R6.docx
+	Sophomore Sem 1/CS 3110/R7.docx
+	Sophomore Sem 1/CS 3110/R8.docx
+	Sophomore Sem 1/CS 3110/cs3110-2019fa-finalreview.pptx
+	Sophomore Sem 1/CS 3110/trial/
+	Sophomore Sem 1/CS 4740/Critique 3 Reading.pdf
+	Sophomore Sem 1/CS 4740/Critique 3.docx
+	Sophomore Sem 1/CS 4740/Critique 3.pdf
+	Sophomore Sem 1/CS 4740/Critique 4 Reading.pdf
+	Sophomore Sem 1/CS 4740/Critique 4.docx
+	Sophomore Sem 1/CS 4740/Critique 4.pdf
+	Sophomore Sem 1/CS 4740/HW1/HW1.zip
+	Sophomore Sem 1/CS 4740/HW2/.DS_Store
+	Sophomore Sem 1/CS 4740/HW2/.ipynb_checkpoints/
+	Sophomore Sem 1/CS 4740/HW2/Archive 2.zip
+	Sophomore Sem 1/CS 4740/HW2/HW 2 Main M1.ipynb
+	Sophomore Sem 1/CS 4740/HW2/Project2-M2.ipynb
+	Sophomore Sem 1/CS 4740/HW2/data_release/.DS_Store
+	Sophomore Sem 1/CS 4740/HW2/data_release/fuck.txt
+	Sophomore Sem 1/CS 4740/HW2/data_release/r.csv
+	Sophomore Sem 1/CS 4740/HW2/data_release/r.txt
+	Sophomore Sem 1/CS 4740/HW2/data_release/try1.csv
+	Sophomore Sem 1/CS 4740/HW2/data_release/try2.csv
+	Sophomore Sem 1/CS 4740/HW2/data_release/try3.csv
+	Sophomore Sem 1/CS 4740/HW2/data_release/try4.csv
+	Sophomore Sem 1/CS 4740/HW2/data_release/try5.csv
+	Sophomore Sem 1/CS 4740/HW2/data_release/try6.csv
+	Sophomore Sem 1/CS 4740/HW2/data_release/try7.csv
+	Sophomore Sem 1/CS 4740/HW3/.DS_Store
+	Sophomore Sem 1/CS 4740/HW3/NLP P3 Submission.pdf
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/.DS_Store
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/.vscode/
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/NLP P3.pdf
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/__pycache__/ffnn1fix_csv.cpython-37.pyc
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/__pycache__/rnn1.cpython-37.pyc
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/__pycache__/rnn_csv.cpython-37.pyc
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/ffnn1fix_csv.py
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/final_analysis.csv
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/q1_ffnn.csv
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/q3_ffnn.csv
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/q3_rnn.csv
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/rnn1.py
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/rnn_csv.py
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/test.py
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/train_data.pkl
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/try.py
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/try2.py
+	Sophomore Sem 1/CS 4740/HW3/Project3FA19/valid_data.pkl
+	Sophomore Sem 1/CS 4740/HW4/
+	Sophomore Sem 1/CS 4740/Lectures/
+	Sophomore Sem 1/CS 4740/Prelim 1/
+	Sophomore Sem 1/CS 4780/Final/
+	Sophomore Sem 1/CS 4780/HW3/IMG_2855.jpg
+	Sophomore Sem 1/CS 4780/HW3/IMG_2861.JPG
+	Sophomore Sem 1/CS 4780/HW3/IMG_2863.jpg
+	Sophomore Sem 1/CS 4780/HW3/IMG_2864.jpg
+	Sophomore Sem 1/CS 4780/HW3/IMG_2866.jpg
+	Sophomore Sem 1/CS 4780/HW3/IMG_2868.jpg
+	Sophomore Sem 1/CS 4780/HW3/Screen Shot 2019-10-06 at 12.29.43 PM.png
+	Sophomore Sem 1/CS 4780/HW3/Screen Shot 2019-10-06 at 8.29.04 PM.png
+	Sophomore Sem 1/CS 4780/HW3/hw3 submission.pdf
+	Sophomore Sem 1/CS 4780/HW3/hw3.docx
+	Sophomore Sem 1/CS 4780/HW3/hw3.pdf
+	Sophomore Sem 1/CS 4780/HW4/
+	Sophomore Sem 1/CS 4780/HW5/
+	Sophomore Sem 1/CS 4780/Prelim/
+	Sophomore Sem 1/FA19 Schedule.png
+	Sophomore Sem 1/Fall Break/
+	Sophomore Sem 1/HADM 2230/HADM 2230 Fall 2019 Final Review-1.pptx
+	Sophomore Sem 1/HADM 2230/HADM2230-final-study-guide.pdf
+	Sophomore Sem 1/HADM 2230/PV_FV Tables.pdf
+	Sophomore Sem 1/HADM 2230/Ratios.pdf
+	Sophomore Sem 1/Kellia/Museum of Ice Cream.png
+	Sophomore Sem 1/Phi Delta Theta/.DS_Store
+	Sophomore Sem 1/Phi Delta Theta/Winter Formal/
+	Sophomore Sem 1/Phi Delta Theta/video-1576171121.mp4
+	Sophomore Sem 2/
+	Transcript/
+	Wine Collection.xlsx
+	orderbook/
+	../Bank Account.jpg
+	../Citibank.png
+	../Passport_Photo.jpg
+	../Refunded Check.png
+	../Reimbursements TODO/
+	../Screen Shot 2020-04-15 at 4.03.17 PM.png
+	../Screen Shot 2020-04-30 at 1.47.39 PM.png
+	../Screen Shot 2020-04-30 at 2.01.46 PM.png
+	../Screen Shot 2020-05-04 at 8.54.34 PM.png
+	../Screen Shot 2020-05-07 at 2.25.03 PM.png
+	../Screen Shot 2020-05-07 at 3.32.04 PM.png
+	../~$FO2040_HW1.docx
+	../../Documents/
+	../../Downloads/
+	../../IntelliJProject/
+	../../Library/
+	../../Movies/
+	../../Music/
+	../../OCaml-Test/
+	../../Pictures/
+	../../Public/
+	../../PycharmProjects/
+	../../VirtualBox VMs/
+	../../anaconda3/
+	../../coreference_output.txt
+	../../eclipse/
+	../../mydatabase.db
+	../../nltk_data/
+	../../test.py
+	../../venv/

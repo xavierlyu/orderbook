@@ -5,6 +5,11 @@ import json
 import sys
 import matplotlib.pyplot as plt
 
+
+if len(sys.argv) == 1:
+    print('sys argv: `debug` for print. `json` for json. `csv` for csv')
+    sys.exit(0)
+
 config_file_path = "./config.json"
 
 with open(config_file_path, "r") as handler:
@@ -18,10 +23,12 @@ user = config["database"]["user"]
 password = config["database"]["password"]
 database = config["database"]["database"]
 
-con = pymysql.connect(host, user=user, port=port, passwd=password, database=database)
+con = pymysql.connect(host, user=user, port=port,
+                      passwd=password, database=database)
 
 with con:
-    query = "SELECT * FROM `kucoin`.`ethusdt` ORDER BY `record_time` ASC"  # HAS TO BE ASCENDING ORDER
+    # HAS TO BE ASCENDING ORDER
+    query = "SELECT * FROM `kucoin`.`ethusdt` ORDER BY `record_time` ASC"
     df = pd.read_sql(query, con)
     # time-insensitive set
 
@@ -105,8 +112,7 @@ with con:
     if sys.argv[1] == "debug" or len(sys.argv[1]) == 1:
         pd.set_option("display.max_rows", None)
         print(df)
-
-    if sys.argv[1] == "output":
+    elif sys.argv[1] == "json":
         for i in range(len(df)):
             pair = {
                 "price": df.iloc[i].values[:-1].tolist(),
@@ -119,6 +125,8 @@ with con:
         output_file_path = "./train.json"
         with open(output_file_path, "w") as f:
             json.dump(output_arr, f)
+    elif sys.argv[1] == "csv":
+        df.to_csv('kucoin_eth-usdt.csv', index=False)
 
     # fig, ax1 = plt.subplots()
     # color = "tab:red"
@@ -126,7 +134,8 @@ with con:
     # ax1.set_ylabel("price ($)")
     # ax1.plot(df["record_time"], df["midprice"], color=color)
 
-    # ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
+    # ax2 = ax1.twinx()  # instantiate a second axes that shares the same
+    # x-axis
 
     # color = "tab:blue"
     # ax2.set_ylabel("OBV", color=color)  # we already handled the x-label with ax1

@@ -3,6 +3,7 @@ import requests
 import time
 from datetime import datetime
 import json
+import pytz
 
 config_file_path = "./config.json"
 
@@ -25,7 +26,7 @@ try:
             "https://api.kucoin.com/api/v1/market/orderbook/level2_100?symbol=ETH-USDT"
         )
 
-        curr_timestamp = datetime.now()
+        curr_timestamp = str(datetime.now(pytz.utc))[:-6]
         data = r.json()
         orderbook_data = data["data"]
         arr = []

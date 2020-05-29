@@ -117,6 +117,10 @@ def main2():
         y_pred = clf.predict(X_test)
         print("Prediction Complete")
         
+        print(list(y_pred))
+        print(list(y_test))
+
+        
         print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
 
         # Model Precision: what percentage of positive tuples are labeled as such?

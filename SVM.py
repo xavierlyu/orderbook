@@ -99,9 +99,9 @@ def main2():
 
         df = pd.read_csv(r'./kucoin_eth-usdt.csv')
         
-        Y = df['movement'].values[:1000] #[:100]
+        Y = df['movement'].values #[:100]
         df = df.drop('movement', axis=1)
-        X = df.values[:1000] #[:100]
+        X = df.values #[:100]
         
         print(X)
         print(Y)
@@ -116,6 +116,11 @@ def main2():
         #Predict the response for test dataset
         y_pred = clf.predict(X_test)
         print("Prediction Complete")
+        
+        print(list(y_pred))
+        print(list(y_test))
+        [print(a, b) for a, b in zip(y_pred, y_test) if a!=b]
+
         
         print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
 

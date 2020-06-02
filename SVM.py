@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 from sklearn.svm import LinearSVC
 from sklearn.metrics import confusion_matrix
 from tqdm import tqdm
-
+import pickle
 
 class SVM:
     def fit(self, X, y):
@@ -93,42 +93,70 @@ def main1():
 from sklearn import svm
 from sklearn import metrics
 
+training = True
+#if you want to try prediction only on saved model, change training to False
+
 def main2():
-        #Create a svm Classifier
-        clf = svm.SVC(kernel='linear', verbose = True) # Linear Kernel
+        #Training the model for pickle
+        if training:
+                #Create a svm Classifier
+                clf = svm.SVC(kernel='linear', verbose = True) # Linear Kernel
 
-        df = pd.read_csv(r'./kucoin_eth-usdt.csv')
-        
-        Y = df['movement'].values #[:100]
-        df = df.drop('movement', axis=1)
-        X = df.values #[:100]
-        
-        print(X)
-        print(Y)
-        
-        X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.33, random_state=42)
-        print("Train Test Split Complete")
+                df = pd.read_csv(r'./kucoin_eth-usdt.csv')
+                
+                Y = df['movement'].values #[:100]
+                df = df.drop('movement', axis=1)
+                
+                # df = df.drop('midprice_1', axis=1)
+                # df = df.drop('midprice_2', axis=1)
+                # df = df.drop('midprice_3', axis=1)
+                # df = df.drop('midprice_4', axis=1)
+                # df = df.drop('midprice_5', axis=1)
+                # df = df.drop('midprice_6', axis=1)
+                # df = df.drop('midprice_7', axis=1)
+                # df = df.drop('midprice_8', axis=1)
+                # df = df.drop('midprice_9', axis=1)
+                # df = df.drop('midprice_10', axis=1)
+                
+                X = df.values #[:100]
+                
+                print(X)
+                print(Y)
+                
+                X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.2, random_state=42)
+                print("Train Test Split Complete")
 
-        #Train the model using the training sets
-        clf.fit(X_train, y_train)
-        print("Fitting Complete")
+                #Train the model using the training sets
+                clf.fit(X_train, y_train)
+                print("Fitting Complete")
 
-        #Predict the response for test dataset
-        y_pred = clf.predict(X_test)
-        print("Prediction Complete")
-        
-        print(list(y_pred))
-        print(list(y_test))
-        [print(a, b) for a, b in zip(y_pred, y_test) if a!=b]
+                #Predict the response for test dataset
+                y_pred = clf.predict(X_test)
+                print("Prediction Complete")
+                
+                print(list(y_pred))
+                print(list(y_test))
+                # [print(a, b) for a, b in zip(y_pred, y_test) if a!=b]
 
-        
-        print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+                
+                print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
 
-        # Model Precision: what percentage of positive tuples are labeled as such?
-        print("Precision:",metrics.precision_score(y_test, y_pred))
+                # Model Precision: what percentage of positive tuples are labeled as such?
+                print("Precision:",metrics.precision_score(y_test, y_pred))
 
-        # Model Recall: what percentage of positive tuples are labelled as such?
-        print("Recall:",metrics.recall_score(y_test, y_pred))
+                # Model Recall: what percentage of positive tuples are labelled as such?
+                print("Recall:",metrics.recall_score(y_test, y_pred))
+                
+                filename = 'SVM_model.sav'
+                pickle.dump(clf, open(filename, 'wb'))
+                
+        else:
+                #Putting in parameters on already trained model
+                filename = 'SVM_model.sav'
+                clf = pickle.load(open(filename, 'rb'))
+                y_pred = clf.predict(X_test)
+                print(y_pred)
+
         
 # print("\nMain 1 Running: \n")
 # main1()

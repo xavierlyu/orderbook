@@ -4,8 +4,6 @@ nohup.out
 config.json
 .DS_Store
 
-/venv
-
 #oscar's stuff (glitched github repo)
 	../../.CFUserTextEncoding
 	../../.DS_Store

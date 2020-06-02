@@ -93,7 +93,7 @@ def main(hidden_dim, number_of_epochs):  # Add relevant parameters
 
     # Create RNN
     model = RNN(input_dim=1, h=hidden_dim,
-                output_size=2, n_layers=10, device=device) #n=1024? train on gpu
+                output_size=2, n_layers=1, device=device) #n=1024? train on gpu
     model.to(device)
     optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
     for epoch in range(number_of_epochs):
@@ -131,9 +131,9 @@ def main(hidden_dim, number_of_epochs):  # Add relevant parameters
                 else:
                     loss += example_loss
             loss = loss / minibatch_size
-            # if (loss.item() > 100):
-            #     print ("Stopping: Model might be Overfitting")
-            #     os._exit(1)
+            if (loss.item() > 100):
+                print ("Stopping: Model might be Overfitting")
+                os._exit(1)
             loss.backward()
             #nn.utils.clip_grad_norm_(model.parameters(),0.5)
             optimizer.step()

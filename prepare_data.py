@@ -5,11 +5,13 @@ import json
 import itertools
 import sys
 import matplotlib.pyplot as plt
-
+from tqdm import tqdm
 
 if len(sys.argv) == 1:
     print('sys argv: `debug` for print. `json` for json. `csv` for csv')
     sys.exit(0)
+
+tbar = tqdm(total=140, file=sys.stdout)
 
 config_file_path = "./config.json"
 
@@ -46,14 +48,18 @@ user = config["database"]["user"]
 password = config["database"]["password"]
 database = config["database"]["database"]
 
+tbar.update(10)
+
 con = pymysql.connect(host, user=user, port=port,
                       passwd=password, database=database)
+
+tbar.update(20)
 
 with con:
     # HAS TO BE ASCENDING ORDER
     query = "SELECT * FROM `kucoin`.`ethusdt` ORDER BY `record_time` ASC"
     df = pd.read_sql(query, con)
-
+    
     # time-insensitive set
 
     # bid-ask spreads, mid-prices, and price differences (v2 and v3)
@@ -66,6 +72,7 @@ with con:
         if l > 1:
             df[f"ask_diff_{l}"] = df[f"ask{l}_price"] - df["ask1_price"]
             df[f"bid_diff_{l}"] = df["bid1_price"] - df[f"bid{l}_price"]
+    tbar.update(20)
 
     # mean prices and volumes (v4)
     vols = [name for name in list(df.columns) if "_vol" in name]
@@ -79,6 +86,7 @@ with con:
     df["avg_bid_price"] = df[bid_prices].mean(axis=1).round(6)
     df["avg_ask_vol"] = df[ask_vols].mean(axis=1).round(6)
     df["avg_bid_vol"] = df[bid_vols].mean(axis=1).round(6)
+    tbar.update(10)
 
     # accumulated differences (v5)
     df["acc_price_diff"] = 0
@@ -90,7 +98,8 @@ with con:
         df["acc_vol_diff"] = (
             df["acc_vol_diff"] + df[f"ask{l}_vol"] - df[f"bid{l}_vol"]
         ).round(6)
-
+        
+    tbar.update(20)
 
     # comparing midprice to the future midprice in 5 rows
     df["movement"] = (
@@ -102,6 +111,8 @@ with con:
 
     shave_off = abs(num_movement_0 - num_movement_1) # num of rows to drop so movement =0 and =1 are the same
 
+    tbar.update(5)
+
     drop_list = []
     for index, row in df.iterrows():
         if (shave_off == 0):
@@ -109,8 +120,10 @@ with con:
         if (row['movement'] == int(num_movement_0 < num_movement_1)):
             drop_list.append(index)
             shave_off = shave_off - 1
+    tbar.update(5)
 
     df = df.drop(drop_list)
+    tbar.update(10)
 
     # time-sensitive set
 
@@ -134,6 +147,8 @@ with con:
         df[f"ask{l}_vol_ddx"] = (
             (df[f"bid{l}_vol"].shift(5) - df[f"bid{l}_vol"]) / (df["time_diff"] / 60.0)
         ).round(6)
+        
+    tbar.update(20)
 
     # calculating OBV
     df["vol"] = df[vols].sum(axis=1)
@@ -147,10 +162,14 @@ with con:
     #         df.loc[i, "OBV"] = df.loc[i - 1, "OBV"]
 
     df = df.drop(columns=["record_time", "time_diff", "vol"])
+    tbar.update(5)
 
     df = df.drop(columns=list(itertools.chain(v1, v2, v4)))
+    tbar.update(5)
 
     df = df.dropna()
+    tbar.update(5)
+
     output_arr = []
 
     if sys.argv[1] == "debug" or len(sys.argv[1]) == 1:
@@ -172,6 +191,8 @@ with con:
     elif sys.argv[1] == "csv":
         df.to_csv('kucoin_eth-usdt.csv', index=False)
 
+    tbar.update(5)
+    tbar.close()
     # fig, ax1 = plt.subplots()
     # color = "tab:red"
     # ax1.set_xlabel("time")

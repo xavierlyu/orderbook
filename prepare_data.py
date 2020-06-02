@@ -94,7 +94,7 @@ with con:
 
     # comparing midprice to the future midprice in 5 rows
     df["movement"] = (
-        (df["midprice_1"].shift(-7) - df["midprice_1"]) > (df["midprice_1"] * FEE)
+        (df["midprice_1"].shift(-5) - df["midprice_1"]) > (df["midprice_1"] * FEE)
     ) * 1  # converting a serie of bool to a serie of int
 
     num_movement_0 = len(df[df['movement'] == 0]) # num of rows where 'movement' is 0
@@ -148,7 +148,7 @@ with con:
 
     df = df.drop(columns=["record_time", "time_diff", "vol"])
 
-    df = df.drop(columns=list(itertools.chain(v1, v2, v4)))
+    # df = df.drop(columns=list(itertools.chain(v1, v2, v4)))
 
     df = df.dropna()
     output_arr = []

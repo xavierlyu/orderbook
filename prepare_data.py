@@ -8,15 +8,55 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 
 if len(sys.argv) == 1:
-    print('sys argv: `debug` for print. `json` for json. `csv` for csv')
+    print("sys argv: `debug` for print. `json` for json. `csv` for csv")
     sys.exit(0)
 
 tbar = tqdm(total=140, file=sys.stdout)
 
 config_file_path = "./config.json"
 
-v1 = ['ask1_price', 'ask1_vol', 'bid1_price', 'bid1_vol', 'ask2_price', 'ask2_vol', 'bid2_price', 'bid2_vol', 'ask3_price', 'ask3_vol', 'bid3_price', 'bid3_vol', 'ask4_price', 'ask4_vol', 'bid4_price', 'bid4_vol', 'ask5_price', 'ask5_vol', 'bid5_price', 'bid5_vol',
-      'ask6_price', 'ask6_vol', 'bid6_price', 'bid6_vol', 'ask7_price', 'ask7_vol', 'bid7_price', 'bid7_vol', 'ask8_price', 'ask8_vol', 'bid8_price', 'bid8_vol', 'ask9_price', 'ask9_vol', 'bid9_price', 'bid9_vol', 'ask10_price', 'ask10_vol', 'bid10_price', 'bid10_vol']
+v1 = [
+    "ask1_price",
+    "ask1_vol",
+    "bid1_price",
+    "bid1_vol",
+    "ask2_price",
+    "ask2_vol",
+    "bid2_price",
+    "bid2_vol",
+    "ask3_price",
+    "ask3_vol",
+    "bid3_price",
+    "bid3_vol",
+    "ask4_price",
+    "ask4_vol",
+    "bid4_price",
+    "bid4_vol",
+    "ask5_price",
+    "ask5_vol",
+    "bid5_price",
+    "bid5_vol",
+    "ask6_price",
+    "ask6_vol",
+    "bid6_price",
+    "bid6_vol",
+    "ask7_price",
+    "ask7_vol",
+    "bid7_price",
+    "bid7_vol",
+    "ask8_price",
+    "ask8_vol",
+    "bid8_price",
+    "bid8_vol",
+    "ask9_price",
+    "ask9_vol",
+    "bid9_price",
+    "bid9_vol",
+    "ask10_price",
+    "ask10_vol",
+    "bid10_price",
+    "bid10_vol",
+]
 
 
 v2 = []
@@ -29,12 +69,42 @@ for l in range(2, 11):
     v3.append(f"ask_diff_{l}")
     v3.append(f"bid_diff_{l}")
 
-v4 = ['avg_ask_price', 'avg_bid_price', 'avg_ask_vol', 'avg_bid_vol']
+v4 = ["avg_ask_price", "avg_bid_price", "avg_ask_vol", "avg_bid_vol"]
 
-v5 = ['acc_price_diff', 'acc_vol_diff']
+v5 = ["acc_price_diff", "acc_vol_diff"]
 
-v6 = ['ask1_price_ddx', 'bid1_price_ddx', 'ask1_vol_ddx', 'ask2_price_ddx', 'bid2_price_ddx', 'ask2_vol_ddx', 'ask3_price_ddx', 'bid3_price_ddx', 'ask3_vol_ddx', 'ask4_price_ddx', 'bid4_price_ddx', 'ask4_vol_ddx', 'ask5_price_ddx', 'bid5_price_ddx', 'ask5_vol_ddx',
-      'ask6_price_ddx', 'bid6_price_ddx', 'ask6_vol_ddx', 'ask7_price_ddx', 'bid7_price_ddx', 'ask7_vol_ddx', 'ask8_price_ddx', 'bid8_price_ddx', 'ask8_vol_ddx', 'ask9_price_ddx', 'bid9_price_ddx', 'ask9_vol_ddx', 'ask10_price_ddx', 'bid10_price_ddx', 'ask10_vol_ddx']
+v6 = [
+    "ask1_price_ddx",
+    "bid1_price_ddx",
+    "ask1_vol_ddx",
+    "ask2_price_ddx",
+    "bid2_price_ddx",
+    "ask2_vol_ddx",
+    "ask3_price_ddx",
+    "bid3_price_ddx",
+    "ask3_vol_ddx",
+    "ask4_price_ddx",
+    "bid4_price_ddx",
+    "ask4_vol_ddx",
+    "ask5_price_ddx",
+    "bid5_price_ddx",
+    "ask5_vol_ddx",
+    "ask6_price_ddx",
+    "bid6_price_ddx",
+    "ask6_vol_ddx",
+    "ask7_price_ddx",
+    "bid7_price_ddx",
+    "ask7_vol_ddx",
+    "ask8_price_ddx",
+    "bid8_price_ddx",
+    "ask8_vol_ddx",
+    "ask9_price_ddx",
+    "bid9_price_ddx",
+    "ask9_vol_ddx",
+    "ask10_price_ddx",
+    "bid10_price_ddx",
+    "ask10_vol_ddx",
+]
 
 
 with open(config_file_path, "r") as handler:
@@ -50,8 +120,7 @@ database = config["database"]["database"]
 
 tbar.update(10)
 
-con = pymysql.connect(host, user=user, port=port,
-                      passwd=password, database=database)
+con = pymysql.connect(host, user=user, port=port, passwd=password, database=database)
 
 tbar.update(20)
 
@@ -59,7 +128,7 @@ with con:
     # HAS TO BE ASCENDING ORDER
     query = "SELECT * FROM `kucoin`.`ethusdt` ORDER BY `record_time` ASC"
     df = pd.read_sql(query, con)
-    
+
     # time-insensitive set
 
     # bid-ask spreads, mid-prices, and price differences (v2 and v3)
@@ -68,7 +137,7 @@ with con:
         df[f"spread_{l}"] = df[f"ask{l}_price"] - df[f"bid{l}_price"]
         df[f"midprice_{l}"] = (df[f"ask{l}_price"] + df[f"bid{l}_price"]) / 2.0
 
-        #v3
+        # v3
         if l > 1:
             df[f"ask_diff_{l}"] = df[f"ask{l}_price"] - df["ask1_price"]
             df[f"bid_diff_{l}"] = df["bid1_price"] - df[f"bid{l}_price"]
@@ -98,26 +167,28 @@ with con:
         df["acc_vol_diff"] = (
             df["acc_vol_diff"] + df[f"ask{l}_vol"] - df[f"bid{l}_vol"]
         ).round(6)
-        
+
     tbar.update(20)
 
     # comparing midprice to the future midprice in 5 rows
     df["movement"] = (
-        (df["midprice_1"].shift(-7) - df["midprice_1"]) > (df["midprice_1"] * FEE)
+        (df["midprice_1"].shift(-5) - df["midprice_1"]) > (df["midprice_1"] * FEE)
     ) * 1  # converting a serie of bool to a serie of int
 
-    num_movement_0 = len(df[df['movement'] == 0]) # num of rows where 'movement' is 0
-    num_movement_1 = len(df[df['movement'] == 1]) # num of rows where 'movement' is 1
+    num_movement_0 = len(df[df["movement"] == 0])  # num of rows where 'movement' is 0
+    num_movement_1 = len(df[df["movement"] == 1])  # num of rows where 'movement' is 1
 
-    shave_off = abs(num_movement_0 - num_movement_1) # num of rows to drop so movement =0 and =1 are the same
+    shave_off = abs(
+        num_movement_0 - num_movement_1
+    )  # num of rows to drop so movement =0 and =1 are the same
 
     tbar.update(5)
 
     drop_list = []
     for index, row in df.iterrows():
-        if (shave_off == 0):
+        if shave_off == 0:
             break
-        if (row['movement'] == int(num_movement_0 < num_movement_1)):
+        if row["movement"] == int(num_movement_0 < num_movement_1):
             drop_list.append(index)
             shave_off = shave_off - 1
     tbar.update(5)
@@ -147,7 +218,7 @@ with con:
         df[f"ask{l}_vol_ddx"] = (
             (df[f"bid{l}_vol"].shift(5) - df[f"bid{l}_vol"]) / (df["time_diff"] / 60.0)
         ).round(6)
-        
+
     tbar.update(20)
 
     # calculating OBV
@@ -189,7 +260,7 @@ with con:
         with open(output_file_path, "w") as f:
             json.dump(output_arr, f)
     elif sys.argv[1] == "csv":
-        df.to_csv('kucoin_eth-usdt.csv', index=False)
+        df.to_csv("kucoin_eth-usdt.csv", index=False)
 
     tbar.update(5)
     tbar.close()

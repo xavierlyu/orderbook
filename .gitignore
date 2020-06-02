@@ -1,5 +1,6 @@
 *.pem
 
+nohup.out
 config.json
 .DS_Store
 

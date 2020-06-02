@@ -96,13 +96,13 @@ from sklearn import metrics
 training = True
 #if you want to try prediction only on saved model, change training to False
 
-def main2():
+def main2(df,fn):
         #Training the model for pickle
         if training:
                 #Create a svm Classifier
                 clf = svm.SVC(kernel='linear', verbose = True) # Linear Kernel
 
-                df = pd.read_csv(r'./kucoin_eth-usdt.csv')
+                # df = pd.read_csv(r'./kucoin_eth-usdt.csv')
                 
                 Y = df['movement'].values #[:100]
                 df = df.drop('movement', axis=1)
@@ -112,7 +112,7 @@ def main2():
                 print(X)
                 print(Y)
                 
-                X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.2, random_state=42)
+                X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.3, random_state=42)
                 print("Train Test Split Complete")
 
                 #Train the model using the training sets
@@ -127,21 +127,25 @@ def main2():
                 print(list(y_test))
                 # [print(a, b) for a, b in zip(y_pred, y_test) if a!=b]
 
-                
-                print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+                accuracy = metrics.accuracy_score(y_test, y_pred)
+                print("Accuracy:",accuracy)
 
                 # Model Precision: what percentage of positive tuples are labeled as such?
-                print("Precision:",metrics.precision_score(y_test, y_pred))
+                precision = metrics.precision_score(y_test, y_pred)
+                print("Precision:",precision)
 
                 # Model Recall: what percentage of positive tuples are labelled as such?
-                print("Recall:",metrics.recall_score(y_test, y_pred))
+                recall = metrics.recall_score(y_test, y_pred)
+                print("Recall:",recall)
                 
-                filename = 'SVM_model.sav'
+                filename = './SVM_Models/SVM_model_' +fn+ '.sav'
                 pickle.dump(clf, open(filename, 'wb'))
+                
+                return accuracy, precision, recall, list(y_pred), list(y_test), filename
                 
         else:
                 #Putting in parameters on already trained model
-                filename = 'SVM_model.sav'
+                filename = './SVM_Models/SVM_model.sav'
                 clf = pickle.load(open(filename, 'rb'))
                 y_pred = clf.predict(X_test)
                 print(y_pred)
@@ -150,5 +154,5 @@ def main2():
 # print("\nMain 1 Running: \n")
 # main1()
 
-print("\nMain 2 Running: \n")
-main2()
+# print("\nMain 2 Running: \n")
+# main2()

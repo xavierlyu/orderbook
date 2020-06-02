@@ -27,7 +27,7 @@ v6 = ['ask1_price_ddx', 'bid1_price_ddx', 'ask1_vol_ddx', 'ask2_price_ddx', 'bid
 #return accuracy, precision, recall, list(y_pred), list(y_test), filename (SVM.main2(df,fn))
 
 with open('Trials.csv', 'a') as csvFile:
-	row = ["V1", "V2", "V3", "V4", "V5", "V6", "Accuracy", "Prediction", "Recall", "Y_Pred", "Y_Test", "Filename"]
+	row = ["V1", "V2", "V3", "V4", "V5", "V6", "Accuracy", "Prediction", "Recall", "Y_Pred", "Y_Test", "Filename", "Time Taken"]
 	writer = csv.writer(csvFile)
 	writer.writerow(row)
 

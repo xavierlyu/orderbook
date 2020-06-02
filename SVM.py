@@ -107,17 +107,6 @@ def main2():
                 Y = df['movement'].values #[:100]
                 df = df.drop('movement', axis=1)
                 
-                # df = df.drop('midprice_1', axis=1)
-                # df = df.drop('midprice_2', axis=1)
-                # df = df.drop('midprice_3', axis=1)
-                # df = df.drop('midprice_4', axis=1)
-                # df = df.drop('midprice_5', axis=1)
-                # df = df.drop('midprice_6', axis=1)
-                # df = df.drop('midprice_7', axis=1)
-                # df = df.drop('midprice_8', axis=1)
-                # df = df.drop('midprice_9', axis=1)
-                # df = df.drop('midprice_10', axis=1)
-                
                 X = df.values #[:100]
                 
                 print(X)

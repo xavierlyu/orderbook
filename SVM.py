@@ -138,14 +138,14 @@ def main2(df,fn):
                 recall = metrics.recall_score(y_test, y_pred)
                 print("Recall:",recall)
                 
-                filename = '/SVM_Models/SVM_model_' +fn+ '.sav'
+                filename = './SVM_Models/SVM_model_' +fn+ '.sav'
                 pickle.dump(clf, open(filename, 'wb'))
                 
                 return accuracy, precision, recall, list(y_pred), list(y_test), filename
                 
         else:
                 #Putting in parameters on already trained model
-                filename = '/SVM_Models/SVM_model.sav'
+                filename = './SVM_Models/SVM_model.sav'
                 clf = pickle.load(open(filename, 'rb'))
                 y_pred = clf.predict(X_test)
                 print(y_pred)

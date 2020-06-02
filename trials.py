@@ -35,7 +35,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v3, v4, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1")
 with open('Trials.csv', 'a') as csvFile:
@@ -45,7 +45,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V2
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v3, v4, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2")
 with open('Trials.csv', 'a') as csvFile:
@@ -55,7 +55,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V3
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v4, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v3")
 with open('Trials.csv', 'a') as csvFile:
@@ -65,7 +65,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V4
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v3, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v4")
 with open('Trials.csv', 'a') as csvFile:
@@ -75,7 +75,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v3, v4, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -85,7 +85,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v3, v4, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -97,7 +97,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V2
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v3, v4, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2")
 with open('Trials.csv', 'a') as csvFile:
@@ -107,7 +107,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V3
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v4, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v3")
 with open('Trials.csv', 'a') as csvFile:
@@ -117,7 +117,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V4
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v3, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v4")
 with open('Trials.csv', 'a') as csvFile:
@@ -127,7 +127,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v3, v4, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -137,7 +137,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v3, v4, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -149,7 +149,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V2V3
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v4, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v3")
 with open('Trials.csv', 'a') as csvFile:
@@ -159,7 +159,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V2V4
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v3, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v4")
 with open('Trials.csv', 'a') as csvFile:
@@ -169,7 +169,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V2V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v3, v4, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -179,7 +179,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V2V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v3, v4, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -191,7 +191,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V3V4
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v3v4")
 with open('Trials.csv', 'a') as csvFile:
@@ -201,7 +201,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V3V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v4, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v3v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -211,7 +211,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V3V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v4, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v3v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -223,7 +223,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V4V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v3, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v4v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -233,7 +233,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V4V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v3, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v4v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -245,7 +245,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v3, v4)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -259,7 +259,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V2V3
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v4, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v3")
 with open('Trials.csv', 'a') as csvFile:
@@ -269,7 +269,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V2V4
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v3, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v4")
 with open('Trials.csv', 'a') as csvFile:
@@ -279,7 +279,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V2V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v3, v4, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -289,7 +289,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V2V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v3, v4, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -301,7 +301,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V3V4
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v3v4")
 with open('Trials.csv', 'a') as csvFile:
@@ -311,7 +311,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V3V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v4, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v3v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -321,7 +321,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V3V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v4, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v3v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -333,7 +333,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V4V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v3, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v4v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -343,7 +343,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V4V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v3, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v4v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -355,7 +355,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v3, v4)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -369,7 +369,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V2V3V4
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v3v4")
 with open('Trials.csv', 'a') as csvFile:
@@ -379,7 +379,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V2V3V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v4, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v3v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -389,7 +389,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V2V3V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v4, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v3v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -401,7 +401,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V2V4V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v3, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v4v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -411,7 +411,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V2V4V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v3, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v4v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -423,7 +423,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V2V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v3, v4)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -437,7 +437,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V3V4V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v3v4v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -447,7 +447,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V3V4V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v3v4v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -459,7 +459,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V3V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v4)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v3v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -473,7 +473,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V4V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2, v3)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v4v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -489,7 +489,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V2V3V4
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v5, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v3v4")
 with open('Trials.csv', 'a') as csvFile:
@@ -499,7 +499,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V2V3V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v4, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v3v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -509,7 +509,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V2V3V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v4, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v3v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -521,7 +521,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V2V4V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v3, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v4v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -531,7 +531,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V2V4V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v3, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v4v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -543,7 +543,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V2V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v3, v4)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -557,7 +557,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V3V4V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v3v4v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -567,7 +567,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V3V4V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v3v4v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -579,7 +579,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V3V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v4)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v3v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -593,7 +593,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V4V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2, v3)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v4v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -609,7 +609,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V2V3V4V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v3v4v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -619,7 +619,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V2V3V4V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v3v4v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -631,7 +631,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V2V3V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v4)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v3v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -645,7 +645,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V2V4V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v3)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v4v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -661,7 +661,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V3V4V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1, v2)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v3v4v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -679,7 +679,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V2V3V4V5
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v6)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v3v4v5")
 with open('Trials.csv', 'a') as csvFile:
@@ -689,7 +689,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Case V1V2V3V4V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v5)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v3v4v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -701,7 +701,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V2V3V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v4)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v3v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -715,7 +715,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V2V4V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v3)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v4v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -731,7 +731,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V1V3V4V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v2)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v3v4v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -749,7 +749,7 @@ with open('Trials.csv', 'a') as csvFile:
 
 #Case V2V3V4V5V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 df = df.drop(columns=list(itertools.chain(v1)))
 a, p, r, yp, yt, fn = SVM.main2(df, "v2v3v4v5v6")
 with open('Trials.csv', 'a') as csvFile:
@@ -759,7 +759,7 @@ with open('Trials.csv', 'a') as csvFile:
  
 #Final Case V1-V6
 start_time = time.time()
-df = pd(r'./kucoin_eth-usdt.csv')
+df = pd.read_csv(r'./kucoin_eth-usdt.csv')
 a, p, r, yp, yt, fn = SVM.main2(df, "v1v2v3v4v5v6")
 with open('Trials.csv', 'a') as csvFile:
 	row = ["Y", "Y", "Y", "Y", "Y", "Y", a, p, r, yp, yt, fn, str(time.time() - start_time)]

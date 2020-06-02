@@ -56,16 +56,18 @@ with con:
 
     # time-insensitive set
 
-    # bid-ask spreads, mid-prices, and price differences
+    # bid-ask spreads, mid-prices, and price differences (v2 and v3)
     for l in range(1, 11):
+        # v2
         df[f"spread_{l}"] = df[f"ask{l}_price"] - df[f"bid{l}_price"]
         df[f"midprice_{l}"] = (df[f"ask{l}_price"] + df[f"bid{l}_price"]) / 2.0
 
+        #v3
         if l > 1:
             df[f"ask_diff_{l}"] = df[f"ask{l}_price"] - df["ask1_price"]
             df[f"bid_diff_{l}"] = df["bid1_price"] - df[f"bid{l}_price"]
 
-    # mean prices and volumes
+    # mean prices and volumes (v4)
     vols = [name for name in list(df.columns) if "_vol" in name]
     prices = [name for name in list(df.columns) if "_price" in name]
     ask_prices = [name for name in prices if "ask" in name]
@@ -78,7 +80,7 @@ with con:
     df["avg_ask_vol"] = df[ask_vols].mean(axis=1).round(6)
     df["avg_bid_vol"] = df[bid_vols].mean(axis=1).round(6)
 
-    # accumulated differences
+    # accumulated differences (v5)
     df["acc_price_diff"] = 0
     df["acc_vol_diff"] = 0
     for l in range(1, 11):
@@ -116,7 +118,7 @@ with con:
     df["time_diff"] = df["record_time"].shift(-5) - df["record_time"]
     df["time_diff"] = df["time_diff"] / np.timedelta64(1, "s")
 
-    # price and volume derivatives
+    # price and volume derivatives (v6)
     for l in range(1, 11):
         df[f"ask{l}_price_ddx"] = (
             (df[f"ask{l}_price"].shift(5) - df[f"ask{l}_price"])

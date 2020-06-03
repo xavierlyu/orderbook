@@ -6,6 +6,10 @@ config.json
 
 /venv
 
+/SVM_Models
+ 
+*.csv
+
 #oscar's stuff (glitched github repo)
 	../../.CFUserTextEncoding
 	../../.DS_Store

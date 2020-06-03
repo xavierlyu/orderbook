@@ -13,8 +13,6 @@ if len(sys.argv) == 1:
 
 tbar = tqdm(total=140, file=sys.stdout)
 
-config_file_path = "./config.json"
-
 v1 = [
     "ask1_price",
     "ask1_vol",
@@ -106,6 +104,7 @@ v6 = [
     "ask10_vol_ddx",
 ]
 
+config_file_path = "./config.json"
 
 with open(config_file_path, "r") as handler:
     config = json.load(handler)
@@ -235,7 +234,7 @@ with con:
     df = df.drop(columns=["record_time", "time_diff", "vol"])
     tbar.update(5)
 
-    df = df.drop(columns=list(itertools.chain(v1, v2, v4)))
+    # df = df.drop(columns=list(itertools.chain(v1, v2, v4)))
     tbar.update(5)
 
     df = df.dropna()

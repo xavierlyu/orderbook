@@ -169,9 +169,10 @@ with con:
 
     tbar.update(20)
 
-    # comparing midprice to the future midprice in 5 rows
+    # comparing midprice to the future midprice in 10 rows
     df["movement"] = (
-        (df["midprice_1"].shift(-5) - df["midprice_1"]) > (df["midprice_1"] * FEE)
+        (df["midprice_1"].shift(-10) - df["midprice_1"])
+        > ((df["midprice_1"] + df["midprice_1"].shift(-10)) * FEE)
     ) * 1  # converting a serie of bool to a serie of int
 
     num_movement_0 = len(df[df["movement"] == 0])  # num of rows where 'movement' is 0
@@ -198,30 +199,29 @@ with con:
     # time-sensitive set
 
     # time difference
-    df["time_diff"] = df["record_time"].shift(-5) - df["record_time"]
+    df["time_diff"] = df["record_time"] - df["record_time"].shift(10)
     df["time_diff"] = df["time_diff"] / np.timedelta64(1, "s")
 
     # price and volume derivatives (v6)
     for l in range(1, 11):
         df[f"ask{l}_price_ddx"] = (
-            (df[f"ask{l}_price"].shift(5) - df[f"ask{l}_price"])
+            (df[f"ask{l}_price"] - df[f"ask{l}_price"].shift(10))
             / (df["time_diff"] / 60.0)
         ).round(6)
         df[f"bid{l}_price_ddx"] = (
-            (df[f"bid{l}_price"].shift(5) - df[f"bid{l}_price"])
+            (df[f"bid{l}_price"] - df[f"bid{l}_price"].shift(10))
             / (df["time_diff"] / 60.0)
         ).round(6)
         df[f"ask{l}_vol_ddx"] = (
-            (df[f"ask{l}_vol"].shift(5) - df[f"ask{l}_vol"]) / (df["time_diff"] / 60.0)
+            (df[f"ask{l}_vol"] - df[f"ask{l}_vol"].shift(10)) / (df["time_diff"] / 60.0)
         ).round(6)
         df[f"ask{l}_vol_ddx"] = (
-            (df[f"bid{l}_vol"].shift(5) - df[f"bid{l}_vol"]) / (df["time_diff"] / 60.0)
+            (df[f"bid{l}_vol"] - df[f"bid{l}_vol"].shift(10)) / (df["time_diff"] / 60.0)
         ).round(6)
 
     tbar.update(20)
 
     # calculating OBV
-    df["vol"] = df[vols].sum(axis=1)
     # df["OBV"] = -1614347.8061
     # for i in range(1, len(df)):
     #     if df.loc[i, "midprice_1"] > df.loc[i - 1, "midprice_1"]:
@@ -231,7 +231,7 @@ with con:
     #     else:
     #         df.loc[i, "OBV"] = df.loc[i - 1, "OBV"]
 
-    df = df.drop(columns=["record_time", "time_diff", "vol"])
+    df = df.drop(columns=["record_time", "time_diff"])
     tbar.update(5)
 
     # df = df.drop(columns=list(itertools.chain(v1, v2, v4)))
@@ -240,12 +240,11 @@ with con:
     df = df.dropna()
     tbar.update(5)
 
-    output_arr = []
-
     if sys.argv[1] == "debug" or len(sys.argv[1]) == 1:
         pd.set_option("display.max_rows", None)
-        print(df)
+        # print(df)
     elif sys.argv[1] == "json":
+        output_arr = []
         for i in range(len(df)):
             pair = {
                 "price": df.iloc[i].values[:-1].tolist(),

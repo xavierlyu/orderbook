@@ -5,7 +5,7 @@ config.json
 .DS_Store
 
 /venv
-
+/__pycache__
 /SVM_Models
  
 Trials.csv

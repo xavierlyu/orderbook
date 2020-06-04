@@ -43,7 +43,7 @@ class Order_Executor:
         }
         data_json = json.dumps(data)
         str_to_sign = str(now) + "POST" + api_endpoint + data_json
-        signature = self.sign(str_to_sign)
+        signature = self._sign(str_to_sign)
 
         headers = {
             "Content-Type": "application/json",
@@ -56,7 +56,7 @@ class Order_Executor:
         print(response.status_code)
         print(response.json())
 
-        self.store_order_id(
+        self._store_order_id(
             now, response.json()["data"]["orderId"], "sandbox" in self.base_url
         )
 
@@ -66,7 +66,7 @@ class Order_Executor:
         url = f"{self.base_url}{api_endpoint}"
         now = int(time.time() * 1000)
         str_to_sign = str(now) + "GET" + api_endpoint
-        signature = self.sign(str_to_sign)
+        signature = self._sign(str_to_sign)
 
         headers = {
             "Content-Type": "application/json",
@@ -79,7 +79,7 @@ class Order_Executor:
         print(response.status_code)
         print(response.json())
 
-    def sign(self, str_to_sign):
+    def _sign(self, str_to_sign):
         return base64.b64encode(
             hmac.new(
                 self.api_secret.encode("utf-8"),
@@ -88,7 +88,7 @@ class Order_Executor:
             ).digest()
         )
 
-    def store_order_id(self, timestamp, order_id, is_sandbox):
+    def _store_order_id(self, timestamp, order_id, is_sandbox):
         host = self.config["database"]["host"]
         port = int(self.config["database"]["port"])
         user = self.config["database"]["user"]
@@ -100,11 +100,7 @@ class Order_Executor:
         )
 
         with connection.cursor() as cursor:
-            arr = [
-                str(timestamp),
-                order_id,
-                is_sandbox
-            ]
+            arr = [str(timestamp), order_id, is_sandbox]
             sql = "INSERT INTO `orders` VALUES (%s, %s, %s)"
             cursor.execute(sql, tuple(arr))
 

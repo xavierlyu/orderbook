@@ -8,7 +8,7 @@ config.json
 /__pycache__
 /SVM_Models
  
-*.csv
+Trials.csv
 
 #oscar's stuff (glitched github repo)
 	../../.CFUserTextEncoding

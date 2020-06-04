@@ -100,7 +100,7 @@ def main2(df,fn):
         #Training the model for pickle
         if training:
                 #Create a svm Classifier
-                clf = svm.SVC(kernel='linear', verbose = True) # Linear Kernel
+                clf = svm.SVC(kernel='linear', verbose = True, max_iter = 99999999) # Linear Kernel
 
                 # df = pd.read_csv(r'./kucoin_eth-usdt.csv')
                 

@@ -12,6 +12,10 @@ import pandas as pd
 import numpy as np
 import pickle
 import itertools
+from sklearn import svm
+from sklearn import metrics
+from sklearn import utils
+import scipy
 
 
 def _calculate_feature(df):
@@ -162,7 +166,7 @@ for minute in range(10):
 
 cprint(f"[INFO] Finished collecting data. Loading trained models", "blue")
 
-clf_1 = pickle.load(open("./SVM_Models/SVM_model_v2v3.sav", "rb"))
+clf_1 = pickle.load(open("./SVM_Models_Fix1_10mil/SVM_model_v2v3.sav", "rb"))
 clf_2 = pickle.load(open("./SVM_Models_Fix1_10mil/SVM_model_v2v3v6.sav", "rb"))
 clf_3 = pickle.load(
     open("./SVM_Models_Fix1_10mil/SVM_model_v2v3v4v5.sav", "rb"))
@@ -203,8 +207,8 @@ df = df.drop(columns=list(itertools.chain(v1)))
 cprint(f"[INFO] Features calculated. Predicting", "blue")
 print(df)
 vote = 0
-y_pred = clf_1.predict(df.drop(columns=list(itertools.chain(v4, v5, v6))))
-print(y_pred)
+# y_pred = clf_1.predict(df.drop(columns=list(itertools.chain(v4, v5, v6))))
+# print(y_pred)
 
 y_pred = clf_2.predict(
     df.drop(columns=list(itertools.chain(v4, v5))))

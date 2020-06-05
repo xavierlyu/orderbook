@@ -7,10 +7,6 @@ import sys
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
-if len(sys.argv) == 1:
-    print("sys argv: `debug` for print. `json` for json. `csv` for csv")
-    sys.exit(0)
-
 tbar = tqdm(total=140, file=sys.stdout)
 
 v1 = [
@@ -119,7 +115,8 @@ database = config["database"]["database"]
 
 tbar.update(10)
 
-con = pymysql.connect(host, user=user, port=port, passwd=password, database=database)
+con = pymysql.connect(host, user=user, port=port,
+                      passwd=password, database=database)
 
 tbar.update(20)
 
@@ -175,8 +172,10 @@ with con:
         > ((df["midprice_1"] + df["midprice_1"].shift(-10)) * FEE)
     ) * 1  # converting a serie of bool to a serie of int
 
-    num_movement_0 = len(df[df["movement"] == 0])  # num of rows where 'movement' is 0
-    num_movement_1 = len(df[df["movement"] == 1])  # num of rows where 'movement' is 1
+    # num of rows where 'movement' is 0
+    num_movement_0 = len(df[df["movement"] == 0])
+    # num of rows where 'movement' is 1
+    num_movement_1 = len(df[df["movement"] == 1])
 
     shave_off = abs(
         num_movement_0 - num_movement_1
@@ -213,10 +212,12 @@ with con:
             / (df["time_diff"] / 60.0)
         ).round(6)
         df[f"ask{l}_vol_ddx"] = (
-            (df[f"ask{l}_vol"] - df[f"ask{l}_vol"].shift(10)) / (df["time_diff"] / 60.0)
+            (df[f"ask{l}_vol"] - df[f"ask{l}_vol"].shift(10)) /
+            (df["time_diff"] / 60.0)
         ).round(6)
         df[f"ask{l}_vol_ddx"] = (
-            (df[f"bid{l}_vol"] - df[f"bid{l}_vol"].shift(10)) / (df["time_diff"] / 60.0)
+            (df[f"bid{l}_vol"] - df[f"bid{l}_vol"].shift(10)) /
+            (df["time_diff"] / 60.0)
         ).round(6)
 
     tbar.update(20)
@@ -240,25 +241,7 @@ with con:
     df = df.dropna()
     tbar.update(5)
 
-    if sys.argv[1] == "debug" or len(sys.argv[1]) == 1:
-        pd.set_option("display.max_rows", None)
-        # print(df)
-    elif sys.argv[1] == "json":
-        output_arr = []
-        for i in range(len(df)):
-            pair = {
-                "price": df.iloc[i].values[:-1].tolist(),
-                "class": str(df.iloc[i, -1]),
-            }
-            output_arr.append(pair)
-
-        # print(output_arr)
-
-        output_file_path = "./train.json"
-        with open(output_file_path, "w") as f:
-            json.dump(output_arr, f)
-    elif sys.argv[1] == "csv":
-        df.to_csv("kucoin_eth-usdt.csv", index=False)
+    df.to_csv("kucoin_eth-usdt.csv", index=False)
 
     tbar.update(5)
     tbar.close()

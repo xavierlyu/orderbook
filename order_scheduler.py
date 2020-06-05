@@ -63,108 +63,18 @@ def _calculate_feature(df):
             / (df["time_diff"] / 60.0)
         ).round(6)
         df[f"ask{l}_vol_ddx"] = (
-            (df[f"ask{l}_vol"] - df[f"ask{l}_vol"].shift(5)) / (df["time_diff"] / 60.0)
+            (df[f"ask{l}_vol"] - df[f"ask{l}_vol"].shift(5)) /
+            (df["time_diff"] / 60.0)
         ).round(6)
         df[f"ask{l}_vol_ddx"] = (
-            (df[f"bid{l}_vol"] - df[f"bid{l}_vol"].shift(5)) / (df["time_diff"] / 60.0)
+            (df[f"bid{l}_vol"] - df[f"bid{l}_vol"].shift(5)) /
+            (df["time_diff"] / 60.0)
         ).round(6)
 
     df = df.drop(columns=["record_time", "time_diff"])
     df = df.dropna()
 
     return df
-
-
-v1 = [
-    "ask1_price",
-    "ask1_vol",
-    "bid1_price",
-    "bid1_vol",
-    "ask2_price",
-    "ask2_vol",
-    "bid2_price",
-    "bid2_vol",
-    "ask3_price",
-    "ask3_vol",
-    "bid3_price",
-    "bid3_vol",
-    "ask4_price",
-    "ask4_vol",
-    "bid4_price",
-    "bid4_vol",
-    "ask5_price",
-    "ask5_vol",
-    "bid5_price",
-    "bid5_vol",
-    "ask6_price",
-    "ask6_vol",
-    "bid6_price",
-    "bid6_vol",
-    "ask7_price",
-    "ask7_vol",
-    "bid7_price",
-    "bid7_vol",
-    "ask8_price",
-    "ask8_vol",
-    "bid8_price",
-    "bid8_vol",
-    "ask9_price",
-    "ask9_vol",
-    "bid9_price",
-    "bid9_vol",
-    "ask10_price",
-    "ask10_vol",
-    "bid10_price",
-    "bid10_vol",
-]
-
-
-v2 = []
-for l in range(1, 11):
-    v2.append(f"spread_{l}")
-    v2.append(f"midprice_{l}")
-
-v3 = []
-for l in range(2, 11):
-    v3.append(f"ask_diff_{l}")
-    v3.append(f"bid_diff_{l}")
-
-v4 = ["avg_ask_price", "avg_bid_price", "avg_ask_vol", "avg_bid_vol"]
-
-v5 = ["acc_price_diff", "acc_vol_diff"]
-
-v6 = [
-    "ask1_price_ddx",
-    "bid1_price_ddx",
-    "ask1_vol_ddx",
-    "ask2_price_ddx",
-    "bid2_price_ddx",
-    "ask2_vol_ddx",
-    "ask3_price_ddx",
-    "bid3_price_ddx",
-    "ask3_vol_ddx",
-    "ask4_price_ddx",
-    "bid4_price_ddx",
-    "ask4_vol_ddx",
-    "ask5_price_ddx",
-    "bid5_price_ddx",
-    "ask5_vol_ddx",
-    "ask6_price_ddx",
-    "bid6_price_ddx",
-    "ask6_vol_ddx",
-    "ask7_price_ddx",
-    "bid7_price_ddx",
-    "ask7_vol_ddx",
-    "ask8_price_ddx",
-    "bid8_price_ddx",
-    "ask8_vol_ddx",
-    "ask9_price_ddx",
-    "bid9_price_ddx",
-    "ask9_vol_ddx",
-    "ask10_price_ddx",
-    "bid10_price_ddx",
-    "ask10_vol_ddx",
-]
 
 
 config_file_path = "./config.json"
@@ -250,12 +160,17 @@ for minute in range(10):
     if minute < 9:
         time.sleep(10)
 
-cprint(f"[INFO] Finished collecting data. Loading trained model", "blue")
+cprint(f"[INFO] Finished collecting data. Loading trained models", "blue")
 
-filename = "./SVM_Models/SVM_model_v1v2v3v4.sav"
-clf = pickle.load(open(filename, "rb"))
+clf_1 = pickle.load(open("./SVM_Models/SVM_model_v2v3.sav", "rb"))
+clf_2 = pickle.load(open("./SVM_Models_Fix1_10mil/SVM_model_v2v3v6.sav", "rb"))
+clf_3 = pickle.load(
+    open("./SVM_Models_Fix1_10mil/SVM_model_v2v3v4v5.sav", "rb"))
+clf_4 = pickle.load(
+    open("./SVM_Models_Fix1_10mil/SVM_model_v2v4v5v6.sav", "rb"))
+clf_5 = pickle.load(open("./SVM_Models_Fix1_10mil/SVM_model_v2v3v4.sav", "rb"))
 
-cprint(f"[INFO] Trained SVM model loaded. Ready for incoming data", "blue")
+cprint(f"[INFO] 5 trained SVM models loaded. Ready for incoming data", "blue")
 
 # while 1:
 r = requests.get(
@@ -283,13 +198,29 @@ arr.append(curr_timestamp)
 df = df.append(pd.Series(arr, index=df.columns), ignore_index=True)
 cprint(f"[INFO] Gathered latest orderbook data. Calculating features", "blue")
 df = _calculate_feature(df)
-df = df.drop(columns=list(itertools.chain(v5, v6)))
-X_test = df.tail(1)
+df = df.tail(1)
+df = df.drop(columns=list(itertools.chain(v1)))
 cprint(f"[INFO] Features calculated. Predicting", "blue")
-y_pred = clf.predict(X_test)
-print(X_test)
+print(df)
+vote = 0
+y_pred = clf_1.predict(df.drop(columns=list(itertools.chain(v4, v5, v6))))
 print(y_pred)
 
+y_pred = clf_2.predict(
+    df.drop(columns=list(itertools.chain(v4, v5))))
+print(y_pred)
+
+y_pred = clf_3.predict(
+    df.drop(columns=list(itertools.chain(v6))))
+print(y_pred)
+
+y_pred = clf_4.predict(
+    df.drop(columns=list(itertools.chain(v3))))
+print(y_pred)
+
+y_pred = clf_5.predict(
+    df.drop(columns=list(itertools.chain(v5, v6))))
+print(y_pred)
 
 # print(df)
 

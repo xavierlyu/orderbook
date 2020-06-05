@@ -1,4 +1,4 @@
 {
-    "python.formatting.provider": "black",
-    "python.pythonPath": "/usr/local/bin/python3"
+  "python.formatting.provider": "black",
+  "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.7/bin/python3"
 }

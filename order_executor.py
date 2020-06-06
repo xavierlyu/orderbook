@@ -29,14 +29,14 @@ class Order_Executor:
             else "https://api.kucoin.com"
         )
 
-    def place_market_order(self, funds):
+    def place_market_order(self, side, funds):
         api_endpoint = "/api/v1/orders"
 
         url = f"{self.base_url}{api_endpoint}"
         now = int(time.time() * 1000)
         data = {
             "clientOid": str(now),
-            "side": "buy",
+            "side": side,
             "symbol": "ETH-USDT",
             "type": "market",
             "funds": funds,
@@ -60,8 +60,10 @@ class Order_Executor:
             now, response.json()["data"]["orderId"], "sandbox" in self.base_url
         )
 
+        return response.json
+
     def list_orders(self):
-        api_endpoint = "/api/v1/orders?currentPage=1&pageSize=50"
+        api_endpoint = "/api/v1/hist-orders"
 
         url = f"{self.base_url}{api_endpoint}"
         now = int(time.time() * 1000)
@@ -78,6 +80,29 @@ class Order_Executor:
         response = requests.request("GET", url, headers=headers)
         print(response.status_code)
         print(response.json())
+
+        return response.json
+
+    def get_order(self, orderId):
+        api_endpoint = f"/api/v1/orders/{orderId}"
+
+        url = f"{self.base_url}{api_endpoint}"
+        now = int(time.time() * 1000)
+        str_to_sign = str(now) + "GET" + api_endpoint
+        signature = self._sign(str_to_sign)
+
+        headers = {
+            "Content-Type": "application/json",
+            "KC-API-KEY": self.api_key,
+            "KC-API-SIGN": signature,
+            "KC-API-TIMESTAMP": str(now),
+            "KC-API-PASSPHRASE": self.api_passphrase,
+        }
+        response = requests.request("GET", url, headers=headers)
+        print(response.status_code)
+        print(response.json())
+
+        return response.json
 
     def _sign(self, str_to_sign):
         return base64.b64encode(
@@ -109,4 +134,5 @@ class Order_Executor:
 
 test_order_placer = Order_Executor()
 
-test_order_placer.place_market_order(34)
+# test_order_placer.place_market_order(5)
+# test_order_placer.get_order("5edb03b01794c300063a1541")

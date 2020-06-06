@@ -17,11 +17,18 @@ install3: #just in case
 collect:
 	python3 collect_data.py
 
-prepare:
-	python3 prepare_data.py csv
+prepare_1hr:
+	python3 prepare_data.py 60
 
-run:
-	python3 prepare_data.py
+prepare_5hr:
+	python3 prepare_data.py 300
+
+run_1hr:
+	python3 prepare_data.py 60
 	python3 trials.py
 	#python3 order_schedule.py (make sure clfs are ./SVM_Models/)
  	#python3 order_executor.py
+
+run_5hr:
+	python3 prepare_data.py 300
+	python3 trials.py

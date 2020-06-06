@@ -7,6 +7,10 @@ import sys
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
+if len(sys.argv) == 1:
+    print("you need to input a number (in minutes)")
+    sys.exit(0)
+
 tbar = tqdm(total=140, file=sys.stdout)
 
 v1 = [
@@ -115,8 +119,7 @@ database = config["database"]["database"]
 
 tbar.update(10)
 
-con = pymysql.connect(host, user=user, port=port,
-                      passwd=password, database=database)
+con = pymysql.connect(host, user=user, port=port, passwd=password, database=database)
 
 tbar.update(20)
 
@@ -166,11 +169,60 @@ with con:
 
     tbar.update(20)
 
-    # comparing midprice to the future midprice in 10 rows
+    # we are comparing the price this many minutes into the future to calculate the movement column
+    time_span = int(sys.argv[1])
+
+    # comparing midprice to the future midprice in {sys.argv[1]} rows
     df["movement"] = (
-        (df["midprice_1"].shift(-10) - df["midprice_1"])
-        > ((df["midprice_1"] + df["midprice_1"].shift(-10)) * FEE)
+        (df["midprice_1"].shift(-int(sys.argv[1])) - df["midprice_1"])
+        > ((df["midprice_1"] + df["midprice_1"].shift(-time_span)) * FEE)
     ) * 1  # converting a serie of bool to a serie of int
+
+    # time-sensitive set
+
+    # time difference
+    df["time_diff"] = df["record_time"] - df["record_time"].shift(time_span)
+    df["time_diff"] = df["time_diff"] / np.timedelta64(1, "s")
+
+    # price and volume derivatives (v6)
+    for l in range(1, 11):
+        df[f"ask{l}_price_ddx"] = (
+            (df[f"ask{l}_price"] - df[f"ask{l}_price"].shift(time_span))
+            / (df["time_diff"] / 60.0)
+        ).round(6)
+        df[f"bid{l}_price_ddx"] = (
+            (df[f"bid{l}_price"] - df[f"bid{l}_price"].shift(time_span))
+            / (df["time_diff"] / 60.0)
+        ).round(6)
+        df[f"ask{l}_vol_ddx"] = (
+            (df[f"ask{l}_vol"] - df[f"ask{l}_vol"].shift(time_span))
+            / (df["time_diff"] / 60.0)
+        ).round(6)
+        df[f"ask{l}_vol_ddx"] = (
+            (df[f"bid{l}_vol"] - df[f"bid{l}_vol"].shift(time_span))
+            / (df["time_diff"] / 60.0)
+        ).round(6)
+
+    tbar.update(20)
+
+    # calculating OBV
+    # df["OBV"] = -1614347.8061
+    # for i in range(1, len(df)):
+    #     if df.loc[i, "midprice_1"] > df.loc[i - 1, "midprice_1"]:
+    #         df.loc[i, "OBV"] = df.loc[i - 1, "OBV"] + df.loc[i, "vol"]
+    #     elif df.loc[i, "midprice_1"] < df.loc[i - 1, "midprice_1"]:
+    #         df.loc[i, "OBV"] = df.loc[i - 1, "OBV"] - df.loc[i, "vol"]
+    #     else:
+    #         df.loc[i, "OBV"] = df.loc[i - 1, "OBV"]
+
+    df = df.drop(columns=["record_time", "time_diff"])
+    tbar.update(5)
+
+    # df = df.drop(columns=list(itertools.chain(v1, v2, v4)))
+    tbar.update(5)
+
+    df = df.dropna()
+    tbar.update(5)
 
     # num of rows where 'movement' is 0
     num_movement_0 = len(df[df["movement"] == 0])
@@ -194,52 +246,6 @@ with con:
 
     df = df.drop(drop_list)
     tbar.update(10)
-
-    # time-sensitive set
-
-    # time difference
-    df["time_diff"] = df["record_time"] - df["record_time"].shift(10)
-    df["time_diff"] = df["time_diff"] / np.timedelta64(1, "s")
-
-    # price and volume derivatives (v6)
-    for l in range(1, 11):
-        df[f"ask{l}_price_ddx"] = (
-            (df[f"ask{l}_price"] - df[f"ask{l}_price"].shift(10))
-            / (df["time_diff"] / 60.0)
-        ).round(6)
-        df[f"bid{l}_price_ddx"] = (
-            (df[f"bid{l}_price"] - df[f"bid{l}_price"].shift(10))
-            / (df["time_diff"] / 60.0)
-        ).round(6)
-        df[f"ask{l}_vol_ddx"] = (
-            (df[f"ask{l}_vol"] - df[f"ask{l}_vol"].shift(10)) /
-            (df["time_diff"] / 60.0)
-        ).round(6)
-        df[f"ask{l}_vol_ddx"] = (
-            (df[f"bid{l}_vol"] - df[f"bid{l}_vol"].shift(10)) /
-            (df["time_diff"] / 60.0)
-        ).round(6)
-
-    tbar.update(20)
-
-    # calculating OBV
-    # df["OBV"] = -1614347.8061
-    # for i in range(1, len(df)):
-    #     if df.loc[i, "midprice_1"] > df.loc[i - 1, "midprice_1"]:
-    #         df.loc[i, "OBV"] = df.loc[i - 1, "OBV"] + df.loc[i, "vol"]
-    #     elif df.loc[i, "midprice_1"] < df.loc[i - 1, "midprice_1"]:
-    #         df.loc[i, "OBV"] = df.loc[i - 1, "OBV"] - df.loc[i, "vol"]
-    #     else:
-    #         df.loc[i, "OBV"] = df.loc[i - 1, "OBV"]
-
-    df = df.drop(columns=["record_time", "time_diff"])
-    tbar.update(5)
-
-    # df = df.drop(columns=list(itertools.chain(v1, v2, v4)))
-    tbar.update(5)
-
-    df = df.dropna()
-    tbar.update(5)
 
     df.to_csv("kucoin_eth-usdt.csv", index=False)
 

@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 from termcolor import cprint
-from prepare_data import v1, v2, v3, v4, v5, v6
 from order_executor import Order_Executor
 import time
 import pymysql
@@ -103,11 +102,22 @@ def process_open_position(order_executor, buy_price):
 
 
 config_file_path = "./config.json"
+constants_file_path = "./constants.json"
 
 with open(config_file_path, "r") as handler:
     config = json.load(handler)
 
 FEE = float(config["exchange"]["fee"])
+
+with open(constants_file_path, "r") as handler:
+    constants = json.load(handler)
+
+v1 = constants["v1"]
+v2 = constants["v2"]
+v3 = constants["v3"]
+v4 = constants["v4"]
+v5 = constants["v5"]
+v6 = constants["v6"]
 
 df = pd.DataFrame(
     columns=[

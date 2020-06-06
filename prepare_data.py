@@ -115,8 +115,7 @@ database = config["database"]["database"]
 
 tbar.update(10)
 
-con = pymysql.connect(host, user=user, port=port,
-                      passwd=password, database=database)
+con = pymysql.connect(host, user=user, port=port, passwd=password, database=database)
 
 tbar.update(20)
 
@@ -212,12 +211,10 @@ with con:
             / (df["time_diff"] / 60.0)
         ).round(6)
         df[f"ask{l}_vol_ddx"] = (
-            (df[f"ask{l}_vol"] - df[f"ask{l}_vol"].shift(10)) /
-            (df["time_diff"] / 60.0)
+            (df[f"ask{l}_vol"] - df[f"ask{l}_vol"].shift(10)) / (df["time_diff"] / 60.0)
         ).round(6)
         df[f"ask{l}_vol_ddx"] = (
-            (df[f"bid{l}_vol"] - df[f"bid{l}_vol"].shift(10)) /
-            (df["time_diff"] / 60.0)
+            (df[f"bid{l}_vol"] - df[f"bid{l}_vol"].shift(10)) / (df["time_diff"] / 60.0)
         ).round(6)
 
     tbar.update(20)

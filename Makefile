@@ -32,3 +32,6 @@ run_1hr:
 run_5hr:
 	python3 prepare_data.py 300
 	python3 trials.py
+
+trade:
+	python3 order_scheduler.py

@@ -73,6 +73,31 @@ def _calculate_feature(df):
             (df[f"bid{l}_vol"] - df[f"bid{l}_vol"].shift(60)) / (df["time_diff"] / 60.0)
         ).round(6)
 
+    df["bid_depth_3"] = 0
+    df["bid_depth_6"] = 0
+    df["bid_depth_10"] = 0
+    df["ask_depth_3"] = 0
+    df["ask_depth_6"] = 0
+    df["ask_depth_10"] = 0
+
+    for l in range(1, 11):
+        # v7 market depth
+        df["bid_depth_10"] = df["bid_depth_10"] + df[f"bid{l}_vol"]
+        df["ask_depth_10"] = df["ask_depth_10"] + df[f"ask{l}_vol"]
+        if l <= 6:
+            df["bid_depth_6"] = df["bid_depth_6"] + df[f"bid{l}_vol"]
+            df["ask_depth_6"] = df["ask_depth_6"] + df[f"ask{l}_vol"]
+            if l <= 3:
+                df["bid_depth_3"] = df["bid_depth_3"] + df[f"bid{l}_vol"]
+                df["ask_depth_3"] = df["ask_depth_3"] + df[f"ask{l}_vol"]
+
+        # v8 imbalance
+        df[f"imb_{l}"] = (df[f"bid{l}_vol"] - df[f"ask{l}_vol"]) / (
+            df[f"bid{l}_vol"] + df[f"ask{l}_vol"]
+        )
+
+        
+
     df = df.drop(columns=["record_time", "time_diff"])
     df = df.dropna()
 

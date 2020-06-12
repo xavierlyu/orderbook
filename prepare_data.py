@@ -11,7 +11,7 @@ if len(sys.argv) == 1:
     print("you need to input a number (in minutes)")
     sys.exit(0)
 
-tbar = tqdm(total=140, file=sys.stdout)
+tbar = tqdm(total=160, file=sys.stdout)
 
 v1 = [
     "ask1_price",
@@ -204,6 +204,31 @@ with con:
         ).round(6)
 
     tbar.update(20)
+
+    df["bid_depth_3"] = 0
+    df["bid_depth_6"] = 0
+    df["bid_depth_10"] = 0
+    df["ask_depth_3"] = 0
+    df["ask_depth_6"] = 0
+    df["ask_depth_10"] = 0
+
+    for l in range(1, 11):
+        # v7 market depth
+        df["bid_depth_10"] = df["bid_depth_10"] + df[f"bid{l}_vol"]
+        df["ask_depth_10"] = df["ask_depth_10"] + df[f"ask{l}_vol"]
+        if l <= 6:
+            df["bid_depth_6"] = df["bid_depth_6"] + df[f"bid{l}_vol"]
+            df["ask_depth_6"] = df["ask_depth_6"] + df[f"ask{l}_vol"]
+            if l <= 3:
+                df["bid_depth_3"] = df["bid_depth_3"] + df[f"bid{l}_vol"]
+                df["ask_depth_3"] = df["ask_depth_3"] + df[f"ask{l}_vol"]
+
+        # v8 imbalance
+        df[f"imb_{l}"] = (df[f"bid{l}_vol"] - df[f"ask{l}_vol"]) / (
+            df[f"bid{l}_vol"] + df[f"ask{l}_vol"]
+        )
+
+        tbar.update(2)
 
     # calculating OBV
     # df["OBV"] = -1614347.8061

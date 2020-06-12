@@ -215,7 +215,7 @@ with con:
     #     else:
     #         df.loc[i, "OBV"] = df.loc[i - 1, "OBV"]
 
-    # df = df.drop(columns=["record_time", "time_diff"])
+    df = df.drop(columns=["record_time", "time_diff"])
     tbar.update(5)
 
     # df = df.drop(columns=list(itertools.chain(v1, v2, v4)))

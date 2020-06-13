@@ -50,7 +50,7 @@ while 1:
         connection.commit()
         time.sleep(60)
 
-    except pymysql.err.OperationalError as e:
+    except pymysql.err.Error as e:
         print(e)
         time.sleep(30)
 

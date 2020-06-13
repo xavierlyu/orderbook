@@ -116,5 +116,25 @@
     "ask10_price_ddx",
     "bid10_price_ddx",
     "ask10_vol_ddx"
+  ],
+  "v7": [
+    "bid_depth_3",
+    "bid_depth_6",
+    "bid_depth_10",
+    "ask_depth_3",
+    "ask_depth_6",
+    "ask_depth_10"
+  ],
+  "v8": [
+    "imb_1",
+    "imb_2",
+    "imb_3",
+    "imb_4",
+    "imb_5",
+    "imb_6",
+    "imb_7",
+    "imb_8",
+    "imb_9",
+    "imb_10"
   ]
 }

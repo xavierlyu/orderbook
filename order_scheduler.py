@@ -96,8 +96,6 @@ def _calculate_feature(df):
             df[f"bid{l}_vol"] + df[f"ask{l}_vol"]
         )
 
-        
-
     df = df.drop(columns=["record_time", "time_diff"])
     df = df.dropna()
 
@@ -161,6 +159,8 @@ v3 = constants["v3"]
 v4 = constants["v4"]
 v5 = constants["v5"]
 v6 = constants["v6"]
+v7 = constants["v7"]
+v8 = constants["v8"]
 
 clf_1 = pickle.load(open("./SVM_Models_1hr/SVM_model_v3v4v6.sav", "rb"))
 clf_2 = pickle.load(open("./SVM_Models_1hr/SVM_model_v3v4.sav", "rb"))
@@ -201,7 +201,7 @@ while 1:
     df_with_features = _calculate_feature(df.copy())
     X_test = df_with_features.tail(1)
     midprice = float((X_test["ask1_price"] + X_test["bid1_price"]) / 2.0)
-    X_test = X_test.drop(columns=list(itertools.chain(v1)))
+    X_test = X_test.drop(columns=list(itertools.chain(v1, v7, v8)))
     # cprint(f"[INFO] Features calculated. Predicting", "blue")
     vote = 0
     y_pred = clf_1.predict(X_test.drop(columns=list(itertools.chain(v2, v5))))

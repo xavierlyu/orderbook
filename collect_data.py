@@ -21,28 +21,29 @@ connection = pymysql.connect(
 )
 
 while 1:
-    r = requests.get(
-        "https://api.kucoin.com/api/v1/market/orderbook/level2_100?symbol=ETH-USDT"
-    )
-
-    curr_timestamp = str(datetime.now(pytz.utc))[:-6]
-    data = r.json()
-    orderbook_data = data["data"]
-    arr = []
-    for i in range(10):
-        arr.append(orderbook_data["asks"][i][0])
-        arr.append(orderbook_data["asks"][i][1])
-        arr.append(orderbook_data["bids"][i][0])
-        arr.append(orderbook_data["bids"][i][1])
-
-    # record-time
-    arr.append(curr_timestamp)
-
-    print(
-        (float(orderbook_data["asks"][0][0]) + float(orderbook_data["bids"][0][0]))
-        / 2.0
-    )
     try:
+        r = requests.get(
+            "https://api.kucoin.com/api/v1/market/orderbook/level2_100?symbol=ETH-USDT"
+        )
+
+        curr_timestamp = str(datetime.now(pytz.utc))[:-6]
+        data = r.json()
+        orderbook_data = data["data"]
+        arr = []
+        for i in range(10):
+            arr.append(orderbook_data["asks"][i][0])
+            arr.append(orderbook_data["asks"][i][1])
+            arr.append(orderbook_data["bids"][i][0])
+            arr.append(orderbook_data["bids"][i][1])
+
+        # record-time
+        arr.append(curr_timestamp)
+
+        print(
+            (float(orderbook_data["asks"][0][0]) + float(orderbook_data["bids"][0][0]))
+            / 2.0
+        )
+
         with connection.cursor() as cursor:
             sql = "INSERT INTO `ethusdt` VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             cursor.execute(sql, tuple(arr))
@@ -50,8 +51,7 @@ while 1:
         connection.commit()
         time.sleep(60)
 
-    except pymysql.err.OperationalError as e:
-        print(e)
+    except:
         time.sleep(30)
 
 

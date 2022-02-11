@@ -115,7 +115,7 @@ pluggy==0.13.1
 poetry==1.0.5
 preshed==3.0.2
 prompt-toolkit==1.0.15
-protobuf==3.11.3
+protobuf==3.15.0
 ptyprocess==0.5.2
 py==1.8.1
 pyarm==1.1.dev1

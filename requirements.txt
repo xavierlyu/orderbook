@@ -96,7 +96,7 @@ networkx==2.2
 nltk==3.5
 np-utils==0.5.12.1
 numba==0.49.0
-numpy==1.18.5
+numpy==1.22.0
 oauthlib==3.1.0
 openpyxl==2.6.2
 opt-einsum==3.2.1
